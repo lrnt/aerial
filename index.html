@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>MIVB Radar</title>
+
+    <link rel="stylesheet" href="/static/leaflet.css" />
+
+    <script src="/static/leaflet.min.js"></script>
+    <script src="/static/leaflet.MovingMarker.js"></script>
+    <script src="/static/jquery-2.1.4.min.js"></script>
+    <script src="/static/script.js"></script>
+
+    <style>
+        html, body { height: 100%; margin: 0px; }
+        #map { height: 100%; }
+        .line {
+            font-family: sans-serif;
+            font-size: 15px;
+            line-height: 24px;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+        .line .number {
+            border-radius: 5px;
+            height: 24px;
+            width: 24px;
+            text-align: center;
+            margin-right: 4px;
+            display: inline-block;
+        }
+        .line .destination {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+</body>
+</html>
