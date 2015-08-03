@@ -25,6 +25,9 @@ function createMarker(lineId, iti, mode, stop, lat, lon)
         'iconSize': [16, 16]
     });
 
+    if (lat === undefined || lon === undefined)
+        return;
+
     var m = L.Marker.movingMarker([[lat, lon]], [0], {icon: icon});
 
     m.bindPopup(
@@ -62,14 +65,17 @@ $(document).ready(function() {
         async: false,
         success: function(data) {
             $.each(data, function(i, present){
-                createMarker(
+                var m = createMarker(
                     present['line'],
                     present['route']['iti'],
                     lines[present['line']]['mode'],
                     present['stop']['id'],
                     present['stop']['latitude'],
                     present['stop']['longitude']
-                ).addTo(map);
+                );
+
+                if (m !== undefined)
+                    m.addTo(map);
             });
         }
     });
@@ -92,7 +98,7 @@ $(document).ready(function() {
         // New marker
         if (origin['id'] == '-1')
         {
-            createMarker(
+            var m = createMarker(
                 lineId,
                 iti,
                 line['mode'],
@@ -100,19 +106,32 @@ $(document).ready(function() {
                 destination['lat'],
                 destination['lon']
             ).addTo(map);
+
+            if (m !== undefined)
+                m.addTo(map);
+
             return;
         }
 
         // Remove marker
         if (destination['id'] == '-1')
         {
-            map.removeLayer(markers[oid]);
-            delete markers[oid];
+            var m = markers[oid];
+
+            if (m === undefined)
+                return;
+
+            map.removeLayer(m);
+            delete m;
             return;
         }
 
         // Move marker
         var m = markers[oid];
+
+        if (m === undefined)
+            return;
+
         m.moveTo([destination['lat'], destination['lon']], 7000);
         markers[did] = m;
         delete markers[oid];
