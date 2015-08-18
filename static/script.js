@@ -33,7 +33,7 @@ function createMarker(lineId, iti, mode, stop, lat, lon)
     m.bindPopup(
         '<div class="line">' + 
         '<div class="number" style="background-color:#' + line['bgcolor'] + ';' +
-                                   'color:# ' + line['fgcolor'] + ';">' +
+                                   'color:#' + line['fgcolor'] + ';">' +
         line['id'] +
         '</div>' +
         '<div class="destination">' +
